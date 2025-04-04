@@ -144,7 +144,7 @@ function toggleMobileNav() {
       const productHtml = `
         <div class="product-item bg-white rounded-lg shadow-md overflow-hidden">
           <div class="product-image-container p-4">
-            <img src="assets/images/${product.image}" alt="${product.name}" class="w-full h-48 object-contain">
+            <img src="assets/images/${product.image}" alt="${product.name}" class="w-full h-48 object-contain" loading="lazy">
           </div>
           <div class="product-content p-4">
             <h3 class="text-lg font-bold">${product.name}</h3>
@@ -156,7 +156,7 @@ function toggleMobileNav() {
       `;
       container.innerHTML += productHtml;
     });
-  }
+}
   
   function setActiveCategory(category) {
     document.querySelectorAll('.category-btn').forEach(btn => {

@@ -5,40 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About | Rumi Saffron</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'">
 </head>
 <body class="bg-gray-50">
   <!-- Navbar -->
   <nav class="bg-gray-800 p-4 fixed w-full top-0 z-10">
-    <div class="container mx-auto flex justify-between items-center">
-      <div class="menu-icon md:hidden cursor-pointer">
+    <div class="container mx-auto flex items-center justify-between md:justify-start">
+      <div class="menu-icon md:hidden cursor-pointer order-1">
         <i class="fas fa-bars text-white"></i>
       </div>
-      <a href="index.html" class="logo text-white text-2xl font-bold">RUMI SAFFRON</a>
-      <ul class="nav-links hidden md:flex space-x-8 justify-center flex-1">
-        <li><a href="index.html" class="text-white hover:text-yellow-300">Home</a></li>
-        <li class="relative group">
-            <a href="shop.html#all">Shop</a>
-            <ul class="absolute hidden group-hover:block bg-white text-black shadow-lg rounded mt-2">
-              <li><a href="shop.html#all" class="block px-4 py-2 hover:bg-gray-100">Shop All</a></li>
-              <li><a href="shop.html#saffron" class="block px-4 py-2 hover:bg-gray-100">Saffron</a></li>
-              <li><a href="shop.html#honey" class="block px-4 py-2 hover:bg-gray-100">Honey</a></li>
-              <li><a href="shop.html#dryfruits" class="block px-4 py-2 hover:bg-gray-100">Dry Fruits</a></li>
+      <a href="index.html" class="logo text-white text-2xl font-bold order-2 mx-auto md:mx-0 md:order-1">RUMI SAFFRON</a>
+      <div class="flex-1 hidden md:flex justify-center order-3">
+        <ul class="nav-links space-x-12">
+          <li class="px-4"><a href="index.html" class="text-white hover:text-yellow-300">Home</a></li>
+          <li class="relative group px-4">
+            <a href="shop.html#all" class="text-white hover:text-yellow-300">Shop</a>
+            <ul class="absolute hidden group-hover:block bg-gray-100 text-black shadow-lg rounded mt-2 p-2">
+              <li><a href="shop.html#all" class="block px-4 py-3 hover:bg-yellow-100">Shop All</a></li>
+              <li><a href="shop.html#saffron" class="block px-4 py-3 hover:bg-yellow-100">Saffron</a></li>
+              <li><a href="shop.html#honey" class="block px-4 py-3 hover:bg-yellow-100">Honey</a></li>
+              <li><a href="shop.html#dryfruits" class="block px-4 py-3 hover:bg-yellow-100">Dry Fruits</a></li>
             </ul>
           </li>
-        <li><a href="about.html" class="text-white hover:text-yellow-300">About</a></li>
-        <li><a href="contact.html" class="text-white hover:text-yellow-300">Contact</a></li>
-      </ul>
-      <div class="cart-icon relative cursor-pointer">
+          <li class="px-4"><a href="about.html" class="text-white hover:text-yellow-300">About</a></li>
+          <li class="px-4"><a href="contact.html" class="text-white hover:text-yellow-300">Contact</a></li>
+        </ul>
+      </div>
+      <div class="cart-icon relative cursor-pointer order-4">
         <i class="fas fa-shopping-bag text-white"></i>
         <span class="cart-count absolute -top-2 -right-2 bg-red-900 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span>
       </div>
     </div>
   </nav>
-
-  <!-- Mobile Navigation Sidebar -->
   <div class="mobile-nav fixed top-0 left-0 w-64 h-full bg-gray-900 text-white transform -translate-x-full transition-transform duration-300 z-20 flex flex-col" id="mobileNav">
     <div class="p-4">
       <span class="close-mobile-nav text-2xl cursor-pointer">&times;</span>
@@ -105,6 +105,7 @@
     </div>
   </footer>
 
-  <script src="js/script.js"></script>
+  <script src="js/script.js" defer></script>
+  <script src="js/products.js" defer></script>
 </body>
 </html>

@@ -3,7 +3,7 @@ const products = [
       category: 'saffron',
       name: 'Saffron (1g)',
       price: 1300,
-      image: 'saffron-1g.jpg',
+      image: 'saffron-1g.webp',
       description: 'Premium quality saffron, handpicked from Iran. Enhances flavor and health.',
       featured: true
     },
@@ -11,7 +11,7 @@ const products = [
       category: 'saffron',
       name: 'Saffron (2g)',
       price: 2400,
-      image: 'saffron-2g.jpg',
+      image: 'saffron-2g.webp',
       description: 'Premium quality saffron from Iran. Save Rs 200. Ideal for cooking.',
       featured: false
     },
@@ -19,7 +19,7 @@ const products = [
       category: 'saffron',
       name: 'Saffron (5g)',
       price: 4000,
-      image: 'saffron-5g.jpg',
+      image: 'saffron-5g.webp',
       description: 'Top-tier saffron from Iran. Save Rs 400. Perfect for gourmet dishes.',
       featured: false
     },
