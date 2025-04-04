@@ -125,38 +125,92 @@ function toggleMobileNav() {
     }, 2000);
   }
   
-  function renderProducts(containerId, filter = 'all') {
-    const container = document.getElementById(containerId);
-    let filteredProducts;
-    if (typeof filter === 'string') {
+//   function renderProducts(containerId, filter = 'all') {
+//     const container = document.getElementById(containerId);
+//     let filteredProducts;
+//     if (typeof filter === 'string') {
+//       if (filter === 'all') {
+//         filteredProducts = products;
+//       } else {
+//         filteredProducts = products.filter(product => product.category === filter);
+//       }
+//     } else if (typeof filter === 'function') {
+//       filteredProducts = products.filter(filter);
+//     } else {
+//       filteredProducts = [];
+//     }
+//     container.innerHTML = '';
+//     filteredProducts.forEach(product => {
+//       const productHtml = `
+//         <div class="product-item bg-white rounded-lg shadow-md overflow-hidden">
+//           <div class="product-image-container p-4">
+//             <img src="assets/images/${product.image}" alt="${product.name}" class="w-full h-48 object-contain" loading="lazy">
+//           </div>
+//           <div class="product-content p-4">
+//             <h3 class="text-lg font-bold">${product.name}</h3>
+//             <p class="text-sm text-gray-600 mb-2">${product.description}</p>
+//             <p class="price text-xl font-semibold">Rs ${product.price.toLocaleString()}</p>
+//             <button class="add-to-cart mt-4 w-full bg-yellow-500 text-black py-2 rounded hover:bg-yellow-600 transition" data-product="${product.name}" data-price="${product.price}" data-image="${product.image}">ADD TO CART</button>
+//           </div>
+//         </div>
+//       `;
+//       container.innerHTML += productHtml;
+//     });
+// }
+
+function renderProducts(containerId, filter = 'all') {
+  const container = document.getElementById(containerId);
+  if (!container) {
+      console.error(`Container with ID ${containerId} not found.`);
+      return;
+  }
+
+  let filteredProducts;
+  if (!products || !Array.isArray(products)) {
+      console.error('Products array is undefined or not an array. Ensure products.js is loaded correctly.');
+      container.innerHTML = '<p class="text-center text-red-500">Error: Unable to load products. Please try again later.</p>';
+      return;
+  }
+
+  if (typeof filter === 'string') {
       if (filter === 'all') {
-        filteredProducts = products;
+          filteredProducts = products;
       } else {
-        filteredProducts = products.filter(product => product.category === filter);
+          filteredProducts = products.filter(product => product.category === filter);
       }
-    } else if (typeof filter === 'function') {
+  } else if (typeof filter === 'function') {
       filteredProducts = products.filter(filter);
-    } else {
+  } else {
       filteredProducts = [];
-    }
-    container.innerHTML = '';
-    filteredProducts.forEach(product => {
+  }
+
+  container.innerHTML = '';
+  if (filteredProducts.length === 0) {
+      container.innerHTML = '<p class="text-center text-gray-500">No products found.</p>';
+      return;
+  }
+
+  filteredProducts.forEach(product => {
       const productHtml = `
-        <div class="product-item bg-white rounded-lg shadow-md overflow-hidden">
-          <div class="product-image-container p-4">
-            <img src="assets/images/${product.image}" alt="${product.name}" class="w-full h-48 object-contain" loading="lazy">
+          <div class="product-item bg-white rounded-lg shadow-md overflow-hidden">
+              <div class="product-image-container p-4">
+                  <img src="assets/images/${product.image}" alt="${product.name}" class="w-full h-48 object-contain" loading="lazy">
+              </div>
+              <div class="product-content p-4">
+                  <h3 class="text-lg font-bold">${product.name}</h3>
+                  <p class="text-sm text-gray-600 mb-2">${product.description}</p>
+                  <p class="price text-xl font-semibold">Rs ${product.price.toLocaleString()}</p>
+                  <button class="add-to-cart mt-4 w-full bg-yellow-500 text-black py-2 rounded hover:bg-yellow-600 transition" data-product="${product.name}" data-price="${product.price}" data-image="${product.image}">ADD TO CART</button>
+              </div>
           </div>
-          <div class="product-content p-4">
-            <h3 class="text-lg font-bold">${product.name}</h3>
-            <p class="text-sm text-gray-600 mb-2">${product.description}</p>
-            <p class="price text-xl font-semibold">Rs ${product.price.toLocaleString()}</p>
-            <button class="add-to-cart mt-4 w-full bg-yellow-500 text-black py-2 rounded hover:bg-yellow-600 transition" data-product="${product.name}" data-price="${product.price}" data-image="${product.image}">ADD TO CART</button>
-          </div>
-        </div>
       `;
       container.innerHTML += productHtml;
-    });
+  });
 }
+
+
+
+
   
   function setActiveCategory(category) {
     document.querySelectorAll('.category-btn').forEach(btn => {
