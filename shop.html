@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop | RUMI SAFFRON</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50">
+  <!-- Navbar -->
+  <nav class="bg-gray-800 p-4 fixed w-full top-0 z-10">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="menu-icon md:hidden cursor-pointer">
+        <i class="fas fa-bars text-white"></i>
+      </div>
+      <a href="index.html" class="logo text-white text-2xl font-bold">RUMI SAFFRON</a>
+      <ul class="nav-links hidden md:flex space-x-8 justify-center flex-1">
+        <li><a href="index.html" class="text-white hover:text-yellow-300">Home</a></li>
+        <li><a href="shop.html" class="text-white hover:text-yellow-300">Shop</a></li>
+        <li><a href="about.html" class="text-white hover:text-yellow-300">About</a></li>
+        <li><a href="contact.html" class="text-white hover:text-yellow-300">Contact</a></li>
+      </ul>
+      <div class="cart-icon relative cursor-pointer">
+        <i class="fas fa-shopping-bag text-white"></i>
+        <span class="cart-count absolute -top-2 -right-2 bg-red-900 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Navigation Sidebar -->
+  <div class="mobile-nav fixed top-0 left-0 w-64 h-full bg-gray-900 text-white transform -translate-x-full transition-transform duration-300 z-20 flex flex-col" id="mobileNav">
+    <div class="p-4">
+      <span class="close-mobile-nav text-2xl cursor-pointer">&times;</span>
+    </div>
+    <ul class="nav-links p-4 space-y-4">
+      <li><a href="index.html" class="text-white hover:text-yellow-300">Home</a></li>
+      <li><a href="shop.html" class="text-white hover:text-yellow-300">Shop</a></li>
+      <li><a href="about.html" class="text-white hover:text-yellow-300">About</a></li>
+      <li><a href="contact.html" class="text-white hover:text-yellow-300">Contact</a></li>
+    </ul>
+    <div class="social-icons p-4 mt-auto">
+      <a href="https://instagram.com/yourhandle" target="_blank" class="text-white hover:text-yellow-300 mx-2"><i class="fab fa-instagram"></i></a>
+      <a href="https://facebook.com/yourhandle" target="_blank" class="text-white hover:text-yellow-300 mx-2"><i class="fab fa-facebook-f"></i></a>
+    </div>
+  </div>
+
+  <!-- Saffron Products -->
+  <section class="product-section py-16 pt-20" id="saffron">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">PERSIAN SAFFRON</h2>
+      <p class="text-center mb-8 text-gray-800">The world's most precious spice, handpicked from Iran.</p>
+      <div id="saffron-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </div>
+  </section>
+
+  <!-- Honey Products -->
+  <section class="product-section py-16" id="honey">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">WILDFLOWER HONEY</h2>
+      <p class="text-center mb-8 text-gray-800">Pure, unfiltered honey from the Himalayas.</p>
+      <div id="honey-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </div>
+  </section>
+
+  <!-- Cart Panel -->
+  <div class="cart-overlay fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+  <div class="cart-panel fixed top-0 right-0 w-full md:w-96 h-full bg-white z-50 transform translate-x-full transition-transform duration-300">
+    <div class="cart-header p-4 border-b flex justify-between items-center">
+      <h3 class="text-xl font-bold text-gray-800">Your Luxury Selection</h3>
+      <button class="close-cart text-2xl">&times;</button>
+    </div>
+    <div class="cart-items p-4 overflow-y-auto flex-1"></div>
+    <div class="cart-summary p-4 border-t">
+      <div class="summary-row flex justify-between mb-4">
+        <span class="text-gray-800">Subtotal</span>
+        <span class="cart-subtotal text-gray-800">Rs 0</span>
+      </div>
+      <button class="checkout-btn w-full bg-yellow-600 text-black py-2 rounded hover:bg-yellow-700 transition">PROCEED TO CHECKOUT</button>
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white p-4 rounded-lg w-11/12 max-w-sm max-h-[80vh] overflow-y-auto relative">
+      <span class="close-checkout text-3xl cursor-pointer absolute top-2 right-2">×</span>
+      <form id="checkout-form" class="space-y-4" action="https://formspree.io/f/mrbpylyr" method="POST">
+        <label for="name" class="block text-sm font-medium text-gray-800">Name</label>
+        <input type="text" id="name" name="name" class="w-full p-2 border rounded text-sm" required>
+        <label for="contact" class="block text-sm font-medium text-gray-800">Contact Number</label>
+        <input type="tel" id="contact" name="contact" class="w-full p-2 border rounded text-sm" required>
+        <label for="email" class="block text-sm font-medium text-gray-800">Email Address</label>
+        <input type="email" id="email" name="email" class="w-full p-2 border rounded text-sm" required>
+        <label for="address" class="block text-sm font-medium text-gray-800">Address</label>
+        <input type="text" id="address" name="address" class="w-full p-2 border rounded text-sm" required>
+        <label for="comments" class="block text-sm font-medium text-gray-800">Comments</label>
+        <textarea id="comments" name="comments" class="w-full p-2 border rounded text-sm" rows="3"></textarea>
+        <input type="hidden" name="cart" id="cart-data">
+        <div class="payment-method">
+          <h3 class="text-lg font-medium mb-2 text-gray-800">Select Payment Method</h3>
+          <div class="radio-option flex items-center">
+            <input type="radio" id="cod" name="payment-method" value="cod" checked class="mr-2">
+            <label for="cod" class="text-gray-800">Cash on Delivery (COD)</label>
+          </div>
+          <div class="radio-option flex items-center">
+            <input type="radio" id="online" name="payment-method" value="online" class="mr-2">
+            <label for="online" class="text-gray-800">Online Payment</label>
+          </div>
+        </div>
+        <div id="online-payment-options" class="hidden space-y-2">
+          <h4 class="text-md font-medium text-gray-800">Choose Payment Option:</h4>
+          <div class="radio-option flex items-center">
+            <input type="radio" id="easypaisa" name="online-payment" value="easypaisa" class="mr-2">
+            <label for="easypaisa" class="text-gray-800">Easypaisa - Send to: <strong>03XX-XXXXXXX</strong></label>
+          </div>
+          <div class="radio-option flex items-center">
+            <input type="radio" id="meezan" name="online-payment" value="meezan" class="mr-2">
+            <label for="meezan" class="text-gray-800">Meezan Bank - Send to: <strong>Account No: XXXXXXXX</strong></label>
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-yellow-600 text-black py-2 rounded hover:bg-yellow-700 transition">Submit Order</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer bg-black text-white py-8">
+    <div class="container mx-auto text-center">
+      <p>© 2025 RUMI SAFFRON. All Rights Reserved.</p>
+      <div class="social-icons mt-4">
+        <a href="https://instagram.com/yourhandle" target="_blank" class="text-white hover:text-yellow-300 mx-2"><i class="fab fa-instagram"></i></a>
+        <a href="https://facebook.com/yourhandle" target="_blank" class="text-white hover:text-yellow-300 mx-2"><i class="fab fa-facebook-f"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/products.js"></script>
+  <script src="js/script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      renderProducts('saffron-grid', product => product.category === 'saffron');
+      renderProducts('honey-grid', product => product.category === 'honey');
+    });
+  </script>
+</body>
+</html>

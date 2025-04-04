@@ -1,0 +1,23 @@
+/* Custom styles */
+body {
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  h1, h2, h3, h4, h5, h6, .logo, .nav-links a {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  nav {
+    min-height: 80px;
+  }
+  
+  footer {
+    margin-top: auto;
+  }
+  
+  body.overflow-hidden {
+    overflow: hidden;
+  }

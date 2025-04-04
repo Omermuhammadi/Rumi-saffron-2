@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Rumi Saffron</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50">
+  <!-- Navbar -->
+  <nav class="bg-gray-800e p-4 fixed w-full top-0 z-10">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="menu-icon md:hidden cursor-pointer">
+        <i class="fas fa-bars text-white"></i>
+      </div>
+      <a href="index.html" class="logo text-white text-2xl font-bold">RUMI SAFFRON</a>
+      <ul class="nav-links hidden md:flex space-x-8 justify-center flex-1">
+        <li><a href="index.html" class="text-white hover:text-yellow-300">Home</a></li>
+        <li><a href="shop.html" class="text-white hover:text-yellow-300">Shop</a></li>
+        <li><a href="about.html" class="text-white hover:text-yellow-300">About</a></li>
+        <li><a href="contact.html" class="text-white hover:text-yellow-300">Contact</a></li>
+      </ul>
+      <div class="cart-icon relative cursor-pointer">
+        <i class="fas fa-shopping-bag text-white"></i>
+        <span class="cart-count absolute -top-2 -right-2 bg-red-900 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Navigation Sidebar -->
+  <div class="mobile-nav fixed top-0 left-0 w-64 h-full bg-gray-900 text-white transform -translate-x-full transition-transform duration-300 z-20 flex flex-col" id="mobileNav">
+    <div class="p-4">
+      <span class="close-mobile-nav text-2xl cursor-pointer">&times;</span>
+    </div>
+    <ul class="nav-links p-4 space-y-4">
+      <li><a href="index.html" class="text-white hover:text-yellow-300">Home</a></li>
+      <li><a href="shop.html" class="text-white hover:text-yellow-300">Shop</a></li>
+      <li><a href="about.html" class="text-white hover:text-yellow-300">About</a></li>
+      <li><a href="contact.html" class="text-white hover:text-yellow-300">Contact</a></li>
+    </ul>
+    <div class="social-icons p-4 mt-auto">
+      <a href="https://instagram.com/yourhandle" target="_blank" class="text-white hover:text-yellow-300 mx-2"><i class="fab fa-instagram"></i></a>
+      <a href="https://facebook.com/yourhandle" target="_blank" class="text-white hover:text-yellow-300 mx-2"><i class="fab fa-facebook-f"></i></a>
+    </div>
+  </div>
+
+  <!-- Contact Form -->
+  <section class="contact py-16 pt-20">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Contact Rumi Saffron – We're Here to Help!</h2>
+      <p class="text-center mb-8 text-gray-800">For wholesale deals, retail orders, or any inquiries, we're here to assist you!</p>
+      <form action="https://formspree.io/f/xovekdwv" method="POST" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+        <div class="mb-4">
+          <input type="text" name="name" placeholder="Your Name" required class="w-full p-2 border rounded">
+        </div>
+        <div class="mb-4">
+          <input type="email" name="email" placeholder="Your Email" required class="w-full p-2 border rounded">
+        </div>
+        <div class="mb-4">
+          <textarea name="message" placeholder="Your Message" required class="w-full p-2 border rounded h-32"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-yellow-600 text-black py-2 rounded hover:bg-yellow-700 transition">Submit</button>
+      </form>
+      <div class="mt-8 text-center">
+        <p class="mb-2 text-gray-800">Or contact us directly:</p>
+        <a href="https://wa.me/1234567890" target="_blank" class="flex items-center justify-center text-green-500 hover:underline">
+          <img src="assets/images/whatsapp.png" alt="WhatsApp Icon" class="w-6 h-6 mr-2">
+          <span>Chat with us on WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer bg-black text-white py-8">
+    <div class="container mx-auto text-center">
+      <p>© 2025 RUMI SAFFRON. All Rights Reserved.</p>
+      <div class="social-icons mt-4">
+        <a href="https://instagram.com/yourhandle" target="_blank" class="text-white hover:text-yellow-300 mx-2"><i class="fab fa-instagram"></i></a>
+        <a href="https://facebook.com/yourhandle" target="_blank" class="text-white hover:text-yellow-300 mx-2"><i class="fab fa-facebook-f"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
