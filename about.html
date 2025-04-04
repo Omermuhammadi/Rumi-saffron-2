@@ -12,13 +12,15 @@
 <body class="bg-gray-50">
   <!-- Navbar -->
   <nav class="bg-gray-800 p-4 fixed w-full top-0 z-10">
-    <div class="container mx-auto flex items-center justify-between md:justify-start">
-      <div class="menu-icon md:hidden cursor-pointer order-1">
-        <i class="fas fa-bars text-white"></i>
+    <div class="container mx-auto flex items-center justify-between">
+      <div class="flex items-center">
+        <div class="menu-icon md:hidden cursor-pointer mr-4">
+          <i class="fas fa-bars text-white"></i>
+        </div>
+        <a href="index.html" class="logo text-white text-2xl font-bold">RUMI SAFFRON</a>
       </div>
-      <a href="index.html" class="logo text-white text-2xl font-bold order-2 mx-auto md:mx-0 md:order-1">RUMI SAFFRON</a>
-      <div class="flex-1 hidden md:flex justify-center order-3">
-        <ul class="nav-links space-x-12">
+      <div class="flex-1 hidden md:flex justify-center">
+        <ul class="nav-links flex space-x-12">
           <li class="px-4"><a href="index.html" class="text-white hover:text-yellow-300">Home</a></li>
           <li class="relative group px-4">
             <a href="shop.html#all" class="text-white hover:text-yellow-300">Shop</a>
@@ -33,7 +35,7 @@
           <li class="px-4"><a href="contact.html" class="text-white hover:text-yellow-300">Contact</a></li>
         </ul>
       </div>
-      <div class="cart-icon relative cursor-pointer order-4">
+      <div class="cart-icon relative cursor-pointer">
         <i class="fas fa-shopping-bag text-white"></i>
         <span class="cart-count absolute -top-2 -right-2 bg-red-900 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span>
       </div>
