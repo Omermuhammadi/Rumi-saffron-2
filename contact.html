@@ -19,7 +19,15 @@
       <a href="index.html" class="logo text-white text-2xl font-bold">RUMI SAFFRON</a>
       <ul class="nav-links hidden md:flex space-x-8 justify-center flex-1">
         <li><a href="index.html" class="text-white hover:text-yellow-300">Home</a></li>
-        <li><a href="shop.html" class="text-white hover:text-yellow-300">Shop</a></li>
+        <li class="relative group">
+            <a href="shop.html#all">Shop</a>
+            <ul class="absolute hidden group-hover:block bg-white text-black shadow-lg rounded mt-2">
+              <li><a href="shop.html#all" class="block px-4 py-2 hover:bg-gray-100">Shop All</a></li>
+              <li><a href="shop.html#saffron" class="block px-4 py-2 hover:bg-gray-100">Saffron</a></li>
+              <li><a href="shop.html#honey" class="block px-4 py-2 hover:bg-gray-100">Honey</a></li>
+              <li><a href="shop.html#dryfruits" class="block px-4 py-2 hover:bg-gray-100">Dry Fruits</a></li>
+            </ul>
+          </li>
         <li><a href="about.html" class="text-white hover:text-yellow-300">About</a></li>
         <li><a href="contact.html" class="text-white hover:text-yellow-300">Contact</a></li>
       </ul>
@@ -37,7 +45,15 @@
     </div>
     <ul class="nav-links p-4 space-y-4">
       <li><a href="index.html" class="text-white hover:text-yellow-300">Home</a></li>
-      <li><a href="shop.html" class="text-white hover:text-yellow-300">Shop</a></li>
+      <li>
+        <a href="shop.html#all">Shop</a>
+        <ul class="ml-4 space-y-2">
+          <li><a href="shop.html#all">Shop All</a></li>
+          <li><a href="shop.html#saffron">Saffron</a></li>
+          <li><a href="shop.html#honey">Honey</a></li>
+          <li><a href="shop.html#dryfruits">Dry Fruits</a></li>
+        </ul>
+      </li>
       <li><a href="about.html" class="text-white hover:text-yellow-300">About</a></li>
       <li><a href="contact.html" class="text-white hover:text-yellow-300">Contact</a></li>
     </ul>

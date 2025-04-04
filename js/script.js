@@ -125,25 +125,32 @@ function toggleMobileNav() {
     }, 2000);
   }
   
-  // Render Products
-  function renderProducts(containerId, filterFn = null) {
+  function renderProducts(containerId, filter = 'all') {
     const container = document.getElementById(containerId);
-    let filteredProducts = products;
-    if (filterFn) {
-      filteredProducts = products.filter(filterFn);
+    let filteredProducts;
+    if (typeof filter === 'string') {
+      if (filter === 'all') {
+        filteredProducts = products;
+      } else {
+        filteredProducts = products.filter(product => product.category === filter);
+      }
+    } else if (typeof filter === 'function') {
+      filteredProducts = products.filter(filter);
+    } else {
+      filteredProducts = [];
     }
     container.innerHTML = '';
     filteredProducts.forEach(product => {
       const productHtml = `
-        <div class="product-item bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+        <div class="product-item bg-white rounded-lg shadow-md overflow-hidden">
           <div class="product-image-container p-4">
             <img src="assets/images/${product.image}" alt="${product.name}" class="w-full h-48 object-contain">
           </div>
           <div class="product-content p-4">
-            <h3 class="text-lg font-bold text-gray-800">${product.name}</h3>
+            <h3 class="text-lg font-bold">${product.name}</h3>
             <p class="text-sm text-gray-600 mb-2">${product.description}</p>
-            <p class="price text-xl font-semibold text-gray-800">Rs ${product.price.toLocaleString()}</p>
-            <button class="add-to-cart mt-4 w-full bg-green-800 text-black py-2 rounded hover:bg-yellow-700 transition" data-product="${product.name}" data-price="${product.price}" data-image="${product.image}">ADD TO CART</button>
+            <p class="price text-xl font-semibold">Rs ${product.price.toLocaleString()}</p>
+            <button class="add-to-cart mt-4 w-full bg-yellow-500 text-black py-2 rounded hover:bg-yellow-600 transition" data-product="${product.name}" data-price="${product.price}" data-image="${product.image}">ADD TO CART</button>
           </div>
         </div>
       `;
@@ -151,7 +158,29 @@ function toggleMobileNav() {
     });
   }
   
+  function setActiveCategory(category) {
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      if (btn.dataset.category === category) {
+        btn.classList.add('bg-yellow-500', 'text-black');
+        btn.classList.remove('bg-gray-200');
+      } else {
+        btn.classList.remove('bg-yellow-500', 'text-black');
+        btn.classList.add('bg-gray-200');
+      }
+    });
+  }
+  
+  document.querySelectorAll('.category-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const category = this.dataset.category;
+      renderProducts('product-grid', category);
+      setActiveCategory(category);
+      window.location.hash = category;
+    });
+  });
+  
   // DOM Content Loaded
+
   document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded');
     const menuIcon = document.querySelector('.menu-icon');
@@ -221,8 +250,14 @@ function toggleMobileNav() {
     }
   
     if (document.getElementById('product-grid')) {
-      renderProducts('product-grid', product => product.featured);
+      renderProducts('product-grid', product => product.featured); // For index.html
     }
   
     updateCartCount();
+  });
+
+  window.addEventListener('hashchange', function() {
+    const category = window.location.hash.substring(1) || 'all';
+    renderProducts('product-grid', category);
+    setActiveCategory(category);
   });

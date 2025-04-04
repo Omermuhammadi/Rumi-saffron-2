@@ -46,5 +46,70 @@ const products = [
       image: 'honey-1kg.jpg',
       description: 'Pure Himalayan honey. Save Rs 500. Ideal for families.',
       featured: true
-    }
+    },
+    {
+        category: 'dryfruits',
+        name: 'Almonds (Badam) (0.5kg)',
+        price: 500,
+        image: 'almonds.webp',
+        description: 'Almonds boost fibre, and vitamin E.',
+        featured: false
+      },
+      {
+        category: 'dryfruits',
+        name: 'Almonds (Badam) (1kg)',
+        price: 900,
+        image: 'almonds.webp',
+        description: 'Almonds boost fibre, and vitamin E.',
+        featured: false
+      },
+      {
+        category: 'dryfruits',
+        name: 'Cashews (Kaju) (0.5kg)',
+        price: 600,
+        image: 'cashews.webp',
+        description: 'Delicious cashews packed with energy and minerals.',
+        featured: false
+      },
+      {
+        category: 'dryfruits',
+        name: 'Cashews (Kaju) (1kg)',
+        price: 1100,
+        image: 'cashews.webp',
+        description: 'Delicious cashews packed with energy and minerals.',
+        featured: false
+      },
+      {
+        category: 'dryfruits',
+        name: 'Walnuts (Akhrot) (0.5kg)',
+        price: 550,
+        image: 'walnuts.webp',
+        description: 'Nutritious walnuts known for brain-boosting.',
+        featured: false
+      },
+      {
+        category: 'dryfruits',
+        name: 'Walnuts (Akhrot) (1kg)',
+        price: 1000,
+        image: 'walnuts.webp',
+        description: 'Nutritious walnuts known for brain-boosting .',
+        featured: false
+      },
+   
+      {
+        category: 'dryfruits',
+        name: 'Pistachios (Pista) (0.5kg)',
+        price: 700,
+        image: 'pista.webp',
+        description: 'Tasty pistachios loaded with protein, healthy fats, and vitamins.',
+        featured: false
+      },
+      {
+        category: 'dryfruits',
+        name: 'Pistachios (Pista) (1kg)',
+        price: 1300,
+        image: 'pista.webp',
+        description: 'Tasty pistachios loaded with protein, healthy fats, and vitamins.',
+        featured: true
+      }
   ];
