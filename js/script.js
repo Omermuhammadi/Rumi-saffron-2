@@ -249,9 +249,9 @@ function toggleMobileNav() {
       return `Items:\n${items.join('\n')}\nTotal: Rs ${total}`;
     }
   
-    if (document.getElementById('product-grid')) {
-      renderProducts('product-grid', product => product.featured); // For index.html
-    }
+    if (document.getElementById('product-grid') && window.location.pathname.endsWith('index.html')) {
+        renderProducts('product-grid', product => product.featured); // For index.html only
+      }
   
     updateCartCount();
   });
