@@ -32,11 +32,11 @@ function updateOrderSummary() {
 }
 
 // Add this after the existing event listeners (e.g., after the cart button listeners)
-// document.getElementById('delivery-option').addEventListener('change', function() {
-//   const selectedOption = this.options[this.selectedIndex];
-//   deliveryFee = parseInt(selectedOption.getAttribute('data-fee')) || 0;
-//   updateOrderSummary();
-// });
+document.getElementById('delivery-option').addEventListener('change', function() {
+  const selectedOption = this.options[this.selectedIndex];
+  deliveryFee = parseInt(selectedOption.getAttribute('data-fee')) || 0;
+  updateOrderSummary();
+});
 
 
   // Cart Functions
