@@ -304,7 +304,9 @@ function renderProducts(containerId, filter = 'all') {
     }
   
     if (document.getElementById('product-grid') && (window.location.pathname === '/' || window.location.pathname.endsWith('index.html'))) {
-      renderProducts('product-grid', product => product.featured); // For index.html or root path
+      console.log('Current pathname:', window.location.pathname);
+      console.log('Products array:', products);
+      renderProducts('product-grid', product => product.featured);
   }
     updateCartCount();
   });
