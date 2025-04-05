@@ -1,3 +1,8 @@
+(function() {
+  emailjs.init("gbUhLoENN_pjcWMZe"); // Replace with your EmailJS User ID (e.g., user_123456)
+})();
+
+
 // Mobile Nav Toggle
 function toggleMobileNav() {
     const mobileNav = document.getElementById('mobileNav');
@@ -286,22 +291,77 @@ function renderProducts(containerId, filter = 'all') {
     });
   
     document.getElementById('checkout-form').addEventListener('submit', function(e) {
-      const cartDataInput = document.getElementById('cart-data');
-      cartDataInput.value = formatCartForEmail(cart);
-      setTimeout(() => {
-        cart = [];
-        updateCart();
-        renderCartItems();
-        document.getElementById('checkoutModal').classList.add('hidden');
-        showNotification('Order submitted successfully!');
-      }, 500);
-    });
+      e.preventDefault(); // Prevent the default form submission for now
   
-    function formatCartForEmail(cart) {
-      let items = cart.map(item => `${item.name} x ${item.quantity} - Rs ${item.price * item.quantity}`);
-      let total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      return `Items:\n${items.join('\n')}\nTotal: Rs ${total}`;
-    }
+      // Get form data
+      const form = e.target;
+      const name = form.querySelector('#name').value;
+      const email = form.querySelector('#email').value;
+      const address = form.querySelector('#address').value;
+      const paymentMethod = form.querySelector('input[name="payment-method"]:checked').value;
+      const cartData = formatCartForEmail(cart);
+  
+      // Set the cart-data field for Formspree
+      const cartDataInput = document.getElementById('cart-data');
+      cartDataInput.value = cartData;
+  
+      // Prepare the email parameters for EmailJS
+      const emailParams = {
+          name: name,
+          cart_data: cartData,
+          address: address,
+          payment_method: paymentMethod,
+          to_email: email
+      };
+  
+      // Send the confirmation email to the customer using EmailJS
+      emailjs.send('service_17n2kvh', 'template_b7b3w2b', emailParams)
+          .then(function(response) {
+              console.log('Email sent successfully:', response.status, response.text);
+              // After sending the email, proceed with the Formspree submission
+              form.submit(); // Manually submit the form to Formspree
+          }, function(error) {
+              console.error('Failed to send email:', error);
+              showNotification('Failed to send confirmation email. Please contact support.', 'error');
+              form.submit(); // Still submit to Formspree even if email fails
+          });
+  
+      // Clear the cart and close the modal
+      setTimeout(() => {
+          cart = [];
+          updateCart();
+          renderCartItems();
+          document.getElementById('checkoutModal').classList.add('hidden');
+          showNotification('Order submitted successfully! A confirmation email has been sent.');
+      }, 500);
+  });
+
+  function formatCartForEmail(cart) {
+    // Define column widths for alignment (reduced for mobile compatibility)
+    const nameWidth = 20; // Reduced from 30 to 20
+    const quantityWidth = 8; // Reduced from 10 to 8
+    const priceWidth = 12; // Reduced from 15 to 12
+
+    // Create the header
+    let output = `Items:\n`;
+    output += `${"Item Name".padEnd(nameWidth)}${"Qty".padEnd(quantityWidth)}${"Price".padEnd(priceWidth)}\n`;
+    output += "-".repeat(nameWidth + quantityWidth + priceWidth) + "\n";
+
+    // Add each item with padded columns
+    cart.forEach(item => {
+        const itemName = item.name.slice(0, nameWidth).padEnd(nameWidth); // Truncate long names
+        const quantity = `x ${item.quantity}`.padEnd(quantityWidth);
+        const price = `Rs ${item.price * item.quantity}`.padEnd(priceWidth);
+        output += `${itemName}${quantity}${price}\n`;
+    });
+
+    // Add the total
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    output += "-".repeat(nameWidth + quantityWidth + priceWidth) + "\n";
+    output += `${"Total".padEnd(nameWidth + quantityWidth)}${"Rs " + total}\n`;
+
+    return output;
+}
   
     if (document.getElementById('product-grid') && (window.location.pathname === '/' || window.location.pathname.endsWith('index.html'))) {
       console.log('Current pathname:', window.location.pathname);
