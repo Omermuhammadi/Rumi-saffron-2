@@ -97,13 +97,16 @@
   </section>
 
   <!-- Cart Panel -->
-  <div class="cart-overlay fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
-  <div class="cart-panel fixed top-0 right-0 w-full md:w-96 h-full bg-white z-50 transform translate-x-full transition-transform duration-300">
+   <!-- Cart Overlay -->
+<div class="cart-overlay fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+  <div class="cart-panel fixed top-0 right-0 w-full md:w-96 h-full bg-white z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
     <div class="cart-header p-4 border-b flex justify-between items-center">
       <h3 class="text-xl font-bold text-gray-800">Your Luxury Selection</h3>
-      <button class="close-cart text-2xl">&times;</button>
+      <button class="close-cart text-2xl">×</button>
     </div>
-    <div class="cart-items p-4 overflow-y-auto flex-1"></div>
+    <div class="cart-items p-4 overflow-y-auto flex-1 max-h-[calc(100vh-12rem)]">
+      <!-- Cart items will be rendered here -->
+    </div>
     <div class="cart-summary p-4 border-t">
       <div class="summary-row flex justify-between mb-4">
         <span class="text-gray-800">Subtotal</span>
@@ -114,8 +117,10 @@
   </div>
 
   <!-- Checkout Modal -->
-  <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-    <div class="bg-white p-4 rounded-lg w-11/12 max-w-sm max-h-[80vh] overflow-y-auto relative">
+  <div 
+  id="checkoutModal" 
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center z-50 hidden h-screen">
+  <div class="bg-white p-4 rounded-lg w-full sm:w-11/12 md:max-w-md max-h-full overflow-y-auto mt-4">
       <span class="close-checkout text-3xl cursor-pointer absolute top-2 right-2">×</span>
       <form id="checkout-form" class="space-y-4" action="https://formspree.io/f/mrbpylyr" method="POST">
         <label for="name" class="block text-sm font-medium text-gray-800">Name</label>
@@ -127,30 +132,61 @@
         <label for="address" class="block text-sm font-medium text-gray-800">Address</label>
         <input type="text" id="address" name="address" class="w-full p-2 border rounded text-sm" required>
         <label for="comments" class="block text-sm font-medium text-gray-800">Comments</label>
-        <textarea id="comments" name="comments" class="w-full p-2 border rounded text-sm" rows="3"></textarea>
+        <textarea id="comments" name="comments" class="w-full p-2 border rounded text-sm" rows="2"></textarea>
         <input type="hidden" name="cart" id="cart-data">
-        <div class="payment-method">
-          <h3 class="text-lg font-medium mb-2 text-gray-800">Select Payment Method</h3>
-          <div class="radio-option flex items-center">
-            <input type="radio" id="cod" name="payment-method" value="cod" checked class="mr-2">
-            <label for="cod" class="text-gray-800">Cash on Delivery (COD)</label>
-          </div>
-          <div class="radio-option flex items-center">
-            <input type="radio" id="online" name="payment-method" value="online" class="mr-2">
-            <label for="online" class="text-gray-800">Online Payment</label>
-          </div>
-        </div>
-        <div id="online-payment-options" class="hidden space-y-2">
-          <h4 class="text-md font-medium text-gray-800">Choose Payment Option:</h4>
-          <div class="radio-option flex items-center">
-            <input type="radio" id="easypaisa" name="online-payment" value="easypaisa" class="mr-2">
-            <label for="easypaisa" class="text-gray-800">Easypaisa - Send to: <strong>03XX-XXXXXXX</strong></label>
-          </div>
-          <div class="radio-option flex items-center">
-            <input type="radio" id="meezan" name="online-payment" value="meezan" class="mr-2">
-            <label for="meezan" class="text-gray-800">Meezan Bank - Send to: <strong>Account No: XXXXXXXX</strong></label>
-          </div>
-        </div>
+     
+<!-- Delivery Options -->
+<div class="mb-6">
+  <label class="block text-xl font-semibold mb-2 text-gray-800">Delivery Option</label>
+  <select id="delivery-option" name="delivery-option" class="mt-1 p-3 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
+      <option value="standard" data-fee="180">Standard (Rs 180) - Get it in 3-5 days</option>
+      <option value="express" data-fee="250">Express (Rs 250) - Within 48 hours</option>
+  </select>
+</div>
+
+<!-- Payment Method Options -->
+<div class="payment-method mb-6">
+  <h3 class="text-xl font-semibold mb-4 text-gray-800">Select Payment Method</h3>
+  <div class="flex flex-col gap-4">
+    <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:shadow-lg transition">
+      <input type="radio" name="payment-method" value="cod" checked class="hidden peer">
+      <!-- Custom radio indicator with golden color -->
+      <span class="w-5 h-5 border-2 border-gray-400 rounded-full flex-shrink-0 mr-4 peer-checked:border-yellow-500 peer-checked:bg-yellow-500"></span>
+      <span class="text-lg text-gray-700">Cash on Delivery (COD)</span>
+    </label>
+    <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:shadow-lg transition">
+      <input type="radio" name="payment-method" value="online" class="hidden peer">
+      <span class="w-5 h-5 border-2 border-gray-400 rounded-full flex-shrink-0 mr-4 peer-checked:border-yellow-500 peer-checked:bg-yellow-500"></span>
+      <span class="text-lg text-gray-700">Online Payment</span>
+    </label>
+  </div>
+</div>
+
+<!-- Online Payment Options -->
+<div id="online-payment-options" class="hidden mt-6">
+  <h4 class="text-xl font-semibold mb-4 text-gray-800">Choose Payment Option:</h4>
+  <div class="flex flex-col gap-4">
+    <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:shadow-lg transition">
+      <input type="radio" name="online-payment" value="easypaisa" class="hidden peer">
+      <span class="w-5 h-5 border-2 border-gray-400 rounded-full flex-shrink-0 mr-4 peer-checked:border-yellow-500 peer-checked:bg-yellow-500"></span>
+      <span class="text-lg text-gray-700">Easypaisa - Send to: <strong>03XX-XXXXXXX</strong></span>
+    </label>
+    <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:shadow-lg transition">
+      <input type="radio" name="online-payment" value="meezan" class="hidden peer">
+      <span class="w-5 h-5 border-2 border-gray-400 rounded-full flex-shrink-0 mr-4 peer-checked:border-yellow-500 peer-checked:bg-yellow-500"></span>
+      <span class="text-lg text-gray-700">Meezan Bank - Send to: <strong>Account No: XXXXXXXX</strong></span>
+    </label>
+  </div>
+</div>
+
+<div class="order-summary mt-6 p-4 border-t border-gray-300">
+  <h3 class="text-xl font-semibold text-gray-800 mb-2">Order Summary</h3>
+  <p class="text-gray-600">Subtotal: Rs <span id="subtotal">0</span></p>
+  <p class="text-gray-600">Delivery Fee: Rs <span id="delivery-fee">0</span></p>
+  <p class="text-gray-800 font-bold">Total: Rs <span id="total">0</span></p>
+</div>
+
+
         <button type="submit" class="w-full bg-yellow-600 text-black py-2 rounded hover:bg-yellow-700 transition">Submit Order</button>
       </form>
     </div>

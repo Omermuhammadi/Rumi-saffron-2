@@ -1,5 +1,6 @@
+let deliveryFee = 180; 
 (function() {
-  emailjs.init("gbUhLoENN_pjcWMZe"); // Replace with your EmailJS User ID (e.g., user_123456)
+  emailjs.init("gbUhLoENN_pjcWMZe"); 
 })();
 
 
@@ -17,7 +18,27 @@ function toggleMobileNav() {
     mobileNav.classList.remove('translate-x-0');
     document.body.classList.remove('overflow-hidden');
   }
-  
+  function calculateTotal() {
+    const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const total = subtotal + deliveryFee;
+    return { subtotal, total };
+}
+
+function updateOrderSummary() {
+  const { subtotal, total } = calculateTotal();
+  document.getElementById('subtotal').textContent = subtotal;
+  document.getElementById('delivery-fee').textContent = deliveryFee;
+  document.getElementById('total').textContent = total;
+}
+
+// Add this after the existing event listeners (e.g., after the cart button listeners)
+// document.getElementById('delivery-option').addEventListener('change', function() {
+//   const selectedOption = this.options[this.selectedIndex];
+//   deliveryFee = parseInt(selectedOption.getAttribute('data-fee')) || 0;
+//   updateOrderSummary();
+// });
+
+
   // Cart Functions
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   
@@ -67,6 +88,7 @@ function toggleMobileNav() {
         cartItemsEl.appendChild(cartItemEl);
       });
       updateCart();
+      updateOrderSummary();
       attachCartEventListeners();
     }
   }
@@ -130,38 +152,7 @@ function toggleMobileNav() {
     }, 2000);
   }
   
-//   function renderProducts(containerId, filter = 'all') {
-//     const container = document.getElementById(containerId);
-//     let filteredProducts;
-//     if (typeof filter === 'string') {
-//       if (filter === 'all') {
-//         filteredProducts = products;
-//       } else {
-//         filteredProducts = products.filter(product => product.category === filter);
-//       }
-//     } else if (typeof filter === 'function') {
-//       filteredProducts = products.filter(filter);
-//     } else {
-//       filteredProducts = [];
-//     }
-//     container.innerHTML = '';
-//     filteredProducts.forEach(product => {
-//       const productHtml = `
-//         <div class="product-item bg-white rounded-lg shadow-md overflow-hidden">
-//           <div class="product-image-container p-4">
-//             <img src="assets/images/${product.image}" alt="${product.name}" class="w-full h-48 object-contain" loading="lazy">
-//           </div>
-//           <div class="product-content p-4">
-//             <h3 class="text-lg font-bold">${product.name}</h3>
-//             <p class="text-sm text-gray-600 mb-2">${product.description}</p>
-//             <p class="price text-xl font-semibold">Rs ${product.price.toLocaleString()}</p>
-//             <button class="add-to-cart mt-4 w-full bg-yellow-500 text-black py-2 rounded hover:bg-yellow-600 transition" data-product="${product.name}" data-price="${product.price}" data-image="${product.image}">ADD TO CART</button>
-//           </div>
-//         </div>
-//       `;
-//       container.innerHTML += productHtml;
-//     });
-// }
+
 
 function renderProducts(containerId, filter = 'all') {
   const container = document.getElementById(containerId);
@@ -212,8 +203,6 @@ function renderProducts(containerId, filter = 'all') {
       container.innerHTML += productHtml;
   });
 }
-
-
 
 
   
@@ -299,6 +288,7 @@ function renderProducts(containerId, filter = 'all') {
       const email = form.querySelector('#email').value;
       const address = form.querySelector('#address').value;
       const paymentMethod = form.querySelector('input[name="payment-method"]:checked').value;
+      const deliveryOption = form.querySelector('#delivery-option').value;
       const cartData = formatCartForEmail(cart);
   
       // Set the cart-data field for Formspree
@@ -311,6 +301,8 @@ function renderProducts(containerId, filter = 'all') {
           cart_data: cartData,
           address: address,
           payment_method: paymentMethod,
+          delivery_option: deliveryOption,
+          delivery_fee: deliveryFee,
           to_email: email
       };
   
@@ -318,17 +310,18 @@ function renderProducts(containerId, filter = 'all') {
       emailjs.send('service_17n2kvh', 'template_b7b3w2b', emailParams)
           .then(function(response) {
               console.log('Email sent successfully:', response.status, response.text);
-              // After sending the email, proceed with the Formspree submission
+
               form.submit(); // Manually submit the form to Formspree
           }, function(error) {
               console.error('Failed to send email:', error);
               showNotification('Failed to send confirmation email. Please contact support.', 'error');
-              form.submit(); // Still submit to Formspree even if email fails
+              form.submit(); 
           });
   
-      // Clear the cart and close the modal
+
       setTimeout(() => {
           cart = [];
+          deliveryFee = 180;
           updateCart();
           renderCartItems();
           document.getElementById('checkoutModal').classList.add('hidden');
@@ -337,17 +330,14 @@ function renderProducts(containerId, filter = 'all') {
   });
 
   function formatCartForEmail(cart) {
-    // Define column widths for alignment (reduced for mobile compatibility)
-    const nameWidth = 20; // Reduced from 30 to 20
-    const quantityWidth = 8; // Reduced from 10 to 8
-    const priceWidth = 12; // Reduced from 15 to 12
+    const nameWidth = 20; 
+    const quantityWidth = 8; 
+    const priceWidth = 12; 
 
-    // Create the header
     let output = `Items:\n`;
     output += `${"Item Name".padEnd(nameWidth)}${"Qty".padEnd(quantityWidth)}${"Price".padEnd(priceWidth)}\n`;
     output += "-".repeat(nameWidth + quantityWidth + priceWidth) + "\n";
 
-    // Add each item with padded columns
     cart.forEach(item => {
         const itemName = item.name.slice(0, nameWidth).padEnd(nameWidth); // Truncate long names
         const quantity = `x ${item.quantity}`.padEnd(quantityWidth);
@@ -355,24 +345,42 @@ function renderProducts(containerId, filter = 'all') {
         output += `${itemName}${quantity}${price}\n`;
     });
 
-    // Add the total
-    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const { subtotal, total } = calculateTotal();
     output += "-".repeat(nameWidth + quantityWidth + priceWidth) + "\n";
+    output += `${"Subtotal".padEnd(nameWidth + quantityWidth)}${"Rs " + subtotal}\n`;
+    output += `${"Delivery Fee".padEnd(nameWidth + quantityWidth)}${"Rs " + deliveryFee}\n`;
     output += `${"Total".padEnd(nameWidth + quantityWidth)}${"Rs " + total}\n`;
 
     return output;
 }
-  
-    if (document.getElementById('product-grid') && (window.location.pathname === '/' || window.location.pathname.endsWith('index.html'))) {
-      console.log('Current pathname:', window.location.pathname);
-      console.log('Products array:', products);
-      renderProducts('product-grid', product => product.featured);
-  }
-    updateCartCount();
+updateCartCount();
+initializeProductRendering();
+    function initializeProductRendering() {
+      const productGrid = document.getElementById('product-grid');
+      if (productGrid) {
+        if (window.location.pathname === '/' || window.location.pathname.endsWith('index.html')) {
+          console.log('Rendering featured products on index');
+          renderProducts('product-grid', product => product.featured);
+        } else if (window.location.pathname.endsWith('shop.html')) {
+          const category = window.location.hash.substring(1) || 'all';
+          console.log('Rendering products for category:', category);
+          renderProducts('product-grid', category);
+          setActiveCategory(category);
+        }
+      } else {
+        console.log('Product grid not found on this page');
+      }
+    }
+
   });
+  
 
   window.addEventListener('hashchange', function() {
-    const category = window.location.hash.substring(1) || 'all';
-    renderProducts('product-grid', category);
-    setActiveCategory(category);
+    if (window.location.pathname.endsWith('shop.html')) {
+      const category = window.location.hash.substring(1) || 'all';
+      console.log('Hash changed, rendering products for category:', category);
+      renderProducts('product-grid', category);
+      setActiveCategory(category);
+    }
   });
+

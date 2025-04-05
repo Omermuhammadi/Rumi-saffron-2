@@ -23,3 +23,42 @@ body {
   .nav-links a:hover {
     color: #f7d774 !important; 
   }
+  #checkoutModal .bg-white {
+    width: 100%;
+    padding: 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    #checkoutModal .bg-white {
+      width: 91.666667%; /* Matches w-11/12 */
+      padding: 1.5rem;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    #checkoutModal .bg-white {
+      max-width: 28rem; /* Matches md:max-w-md */
+    }
+  }
+  
+  #checkout-form input,
+  #checkout-form textarea,
+  #checkout-form select {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .cart-panel {
+  width: 100%;
+  max-width: 24rem; /* Matches md:w-96 */
+}
+
+@media (min-width: 768px) {
+  .cart-panel {
+    width: 24rem;
+  }
+}
+
+.cart-items {
+  flex-grow: 1;
+  overflow-y: auto;
+}
