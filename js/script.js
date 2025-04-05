@@ -303,10 +303,9 @@ function renderProducts(containerId, filter = 'all') {
       return `Items:\n${items.join('\n')}\nTotal: Rs ${total}`;
     }
   
-    if (document.getElementById('product-grid') && window.location.pathname.endsWith('index.html')) {
-        renderProducts('product-grid', product => product.featured); // For index.html only
-      }
-  
+    if (document.getElementById('product-grid') && (window.location.pathname === '/' || window.location.pathname.endsWith('index.html'))) {
+      renderProducts('product-grid', product => product.featured); // For index.html or root path
+  }
     updateCartCount();
   });
 
